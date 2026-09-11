@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Design Portfolio</title>
+<meta name="description" content="制作実績・デモサイトのポートフォリオ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafaf8;
+    --ink:#17140f;
+    --muted:#5c5850;
+    --hairline:#e3ded0;
+    --card-bg:#ffffff;
+    --accent:#9c3726;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121109;
+      --ink:#f3efe6;
+      --muted:#9c968a;
+      --hairline:#2b2820;
+      --card-bg:#1b1811;
+      --accent:#c2503a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121109;
+    --ink:#f3efe6;
+    --muted:#9c968a;
+    --hairline:#2b2820;
+    --card-bg:#1b1811;
+    --accent:#c2503a;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding-inline:24px;}
+
+  header{padding-block:80px 56px;border-bottom:1px solid var(--hairline);}
+  .eyebrow{
+    font-size:12px;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(30px,5vw,44px);
+    font-weight:900;
+    line-height:1.3;
+    margin:0 0 16px;
+  }
+  header p{
+    font-size:16px;
+    color:var(--muted);
+    line-height:1.9;
+    max-width:38em;
+    margin:0;
+  }
+
+  main{padding-block:56px 96px;}
+  .section-label{
+    font-size:12px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin-bottom:24px;
+  }
+  .works{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  @media (max-width:700px){
+    .works{grid-template-columns:1fr;}
+  }
+  .work-card{
+    display:block;
+    background:var(--card-bg);
+    border:1px solid var(--hairline);
+    border-radius:14px;
+    padding:28px 26px;
+    text-decoration:none;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .work-card:hover{
+    border-color:var(--accent);
+    transform:translateY(-2px);
+  }
+  .work-card .tag{
+    font-size:11.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:10px;
+    display:block;
+  }
+  .work-card h2{
+    font-size:20px;
+    font-weight:700;
+    margin:0 0 10px;
+  }
+  .work-card p{
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.8;
+    margin:0 0 16px;
+  }
+  .work-card .link{
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--ink);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .work-card .link svg{width:10px;height:10px;}
+
+  footer{
+    border-top:1px solid var(--hairline);
+    padding-block:32px;
+  }
+  footer p{
+    font-size:12.5px;
+    color:var(--muted);
+    margin:0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Portfolio</div>
+    <h1>Web制作デモサイト集</h1>
+    <p>サークル・団体サイトを想定したデモページです。それぞれ異なるデザインの方向性で制作しています。詳細のご相談・お見積りはお気軽にご連絡ください。</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="section-label">Works</div>
+    <div class="works">
+      <a class="work-card" href="works/bearfoot-v1/">
+        <span class="tag">Design 01 — Vintage / Warm</span>
+        <h2>BEARFOOT（あたたかみ・アナログ調）</h2>
+        <p>紙質感のあるベージュ基調に、革靴のステッチを思わせるアクセント。大学野球サークルのアットホームな雰囲気を表現したデザインです。</p>
+        <span class="link">サイトを見る
+          <svg viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-90 5 5)"/></svg>
+        </span>
+      </a>
+      <a class="work-card" href="works/bearfoot-v2/">
+        <span class="tag">Design 02 — Modern / Clean</span>
+        <h2>BEARFOOT（モダン・洗練）</h2>
+        <p>白基調にブルーアクセントを効かせた、シンプルで読みやすいレイアウト。参加スタイルを選べるインタラクティブな要素も搭載しています。</p>
+        <span class="link">サイトを見る
+          <svg viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-90 5 5)"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Web Design Portfolio</p>
+  </div>
+</footer>
+
+</body>
+</html>

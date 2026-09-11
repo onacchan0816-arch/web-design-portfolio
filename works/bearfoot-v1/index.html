@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEARFOOT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F3EC;
+    --ink:#17140F;
+    --ember:#9C3726;
+    --graphite:#5C5850;
+    --hairline:#E1DBCD;
+    --paper-raise:#EFEADD;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14120D;
+      --ink:#F3EFE6;
+      --ember:#C2503A;
+      --graphite:#9C968A;
+      --hairline:#2B2820;
+      --paper-raise:#1B1811;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14120D;
+    --ink:#F3EFE6;
+    --ember:#C2503A;
+    --graphite:#9C968A;
+    --hairline:#2B2820;
+    --paper-raise:#1B1811;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    padding-inline:max(20px, calc((100vw - 1080px)/2));
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  .wrap{max-width:1080px;margin:0 auto;}
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px;height:1px;
+    background:var(--ember);
+    display:inline-block;
+  }
+
+  h1,h2,h3{
+    text-wrap:balance;
+    margin:0;
+  }
+
+  p{margin:0;}
+  .body-copy{
+    max-width:38em;
+    color:var(--graphite);
+    line-height:1.9;
+    font-size:16px;
+  }
+
+  /* ---------- Mark ---------- */
+  .mark{display:block;}
+  .mark path, .mark ellipse{fill:var(--ink);}
+
+  .stitch{
+    width:100%;
+    height:14px;
+    display:block;
+    opacity:0.55;
+  }
+  .stitch path{stroke:var(--ember); fill:none; stroke-width:1.4;}
+  .stitch line{stroke:var(--ember); stroke-width:1.4;}
+
+  /* ---------- Header ---------- */
+  header{
+    padding-block:28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--hairline);
+  }
+  .lockup{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+  }
+  .lockup .mark{width:26px;height:26px;}
+  .lockup .word{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:0.04em;
+  }
+  nav{display:flex; gap:28px;}
+  nav a{
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-decoration:none;
+    color:var(--graphite);
+    font-weight:500;
+  }
+  nav a:hover, nav a:focus-visible{color:var(--ink);}
+  @media (max-width:620px){
+    nav{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding-block:96px 72px;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+  }
+  .hero .mark-big{width:64px;height:64px;}
+  .hero h1{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-weight:700;
+    font-size:clamp(56px, 12vw, 132px);
+    line-height:0.92;
+    letter-spacing:0.01em;
+  }
+  .hero .sub{
+    font-size:clamp(17px,2.4vw,21px);
+    color:var(--graphite);
+    max-width:32em;
+    line-height:1.7;
+  }
+  .hero .tag{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-size:14px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:600;
+  }
+
+  /* ---------- Sections ---------- */
+  section{
+    padding-block:76px;
+    border-bottom:1px solid var(--hairline);
+  }
+  section:last-of-type{border-bottom:none;}
+
+  .section-head{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    margin-bottom:44px;
+    max-width:40em;
+  }
+  .section-head h2{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-weight:700;
+    font-size:clamp(32px,5vw,48px);
+    letter-spacing:0.01em;
+  }
+  .note{
+    font-size:13px;
+    color:var(--graphite);
+    font-style:italic;
+    opacity:0.85;
+  }
+
+  /* Activities grid */
+  .grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--hairline);
+    border:1px solid var(--hairline);
+  }
+  @media (max-width:760px){
+    .grid3{grid-template-columns:1fr;}
+  }
+  .card{
+    background:var(--paper);
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .card .num{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-size:14px;
+    letter-spacing:0.1em;
+    color:var(--ember);
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+  }
+  .card h3{
+    font-size:19px;
+    font-weight:700;
+  }
+  .card p{
+    color:var(--graphite);
+    font-size:14.5px;
+    line-height:1.8;
+  }
+
+  /* Schedule timeline */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+  }
+  .term{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-size:13px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--graphite);
+    font-weight:600;
+    padding-block:18px 6px;
+    border-top:1px solid var(--hairline);
+  }
+  .term:first-child{border-top:none;}
+  .tl-row{
+    display:grid;
+    grid-template-columns:88px 1fr;
+    gap:20px;
+    padding-block:16px;
+    align-items:baseline;
+  }
+  .tl-row + .tl-row{border-top:1px solid var(--hairline);}
+  .tl-month{
+    font-family:"Big Shoulders Display", sans-serif;
+    font-size:26px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+  .tl-event b{
+    font-weight:700;
+    display:block;
+    font-size:15.5px;
+    margin-bottom:4px;
+  }
+  .tl-event span{
+    color:var(--graphite);
+    font-size:14px;
+    line-height:1.7;
+  }
+  @media (max-width:520px){
+    .tl-row{grid-template-columns:56px 1fr; gap:14px;}
+    .tl-month{font-size:20px;}
+  }
+
+  /* Philosophy */
+  .philosophy blockquote{
+    margin:0;
+    font-family:"Big Shoulders Display", sans-serif;
+    font-weight:600;
+    font-size:clamp(28px,4.4vw,44px);
+    line-height:1.35;
+    letter-spacing:0.005em;
+    max-width:20em;
+  }
+  .philosophy blockquote span{color:var(--ember);}
+  .philosophy .attribution{
+    margin-top:24px;
+    font-size:13px;
+    color:var(--graphite);
+    letter-spacing:0.05em;
+  }
+
+  /* Join / contact */
+  .join{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+  .join .status{
+    display:inline-flex;
+    align-self:flex-start;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border:1px solid var(--hairline);
+    border-radius:100px;
+    font-size:12.5px;
+    color:var(--graphite);
+    letter-spacing:0.03em;
+  }
+  .join .status i{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--ember);
+    display:inline-block;
+  }
+  .join-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--hairline);
+    border:1px solid var(--hairline);
+    max-width:640px;
+  }
+  @media (max-width:560px){
+    .join-grid{grid-template-columns:1fr;}
+  }
+  .join-item{
+    background:var(--paper);
+    padding:24px 26px;
+  }
+  .join-item .k{
+    font-size:11.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--graphite);
+    display:block;
+    margin-bottom:8px;
+  }
+  .join-item .v{
+    font-size:15px;
+    color:var(--ink);
+  }
+
+  footer{
+    padding-block:44px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  footer .lockup .word{font-size:16px;}
+  footer .copy{
+    font-size:12.5px;
+    color:var(--graphite);
+  }
+
+  /* Scroll reveal */
+  .reveal{
+    opacity:1;
+    transform:none;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in{
+      opacity:1;
+      transform:none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <a class="lockup" href="#top">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+        <ellipse cx="24" cy="30" rx="12" ry="10"/>
+        <ellipse cx="9" cy="14" rx="5.4" ry="6.6" transform="rotate(-18 9 14)"/>
+        <ellipse cx="21" cy="7" rx="5.6" ry="7" transform="rotate(-4 21 7)"/>
+        <ellipse cx="34" cy="8" rx="5.4" ry="6.8" transform="rotate(10 34 8)"/>
+        <ellipse cx="43" cy="19" rx="4.6" ry="6" transform="rotate(30 43 19)"/>
+      </svg>
+      <span class="word">BEARFOOT</span>
+    </a>
+    <nav>
+      <a href="#concept">コンセプト</a>
+      <a href="#activities">活動内容</a>
+      <a href="#schedule">年間予定</a>
+      <a href="#philosophy">理念</a>
+      <a href="#join">加入案内</a>
+    </nav>
+  </header>
+
+  <div id="top" class="hero">
+    <svg class="mark mark-big" viewBox="0 0 48 48" aria-hidden="true">
+      <ellipse cx="24" cy="30" rx="12" ry="10"/>
+      <ellipse cx="9" cy="14" rx="5.4" ry="6.6" transform="rotate(-18 9 14)"/>
+      <ellipse cx="21" cy="7" rx="5.6" ry="7" transform="rotate(-4 21 7)"/>
+      <ellipse cx="34" cy="8" rx="5.4" ry="6.8" transform="rotate(10 34 8)"/>
+      <ellipse cx="43" cy="19" rx="4.6" ry="6" transform="rotate(30 43 19)"/>
+    </svg>
+    <div class="tag">Hiroshima University Baseball Circle</div>
+    <h1>BEARFOOT</h1>
+    <p class="sub">広島大学で野球を続けたい学生のための、学生主体の野球サークル。うまさよりも先に、白球を追いかけ続ける理由を大事にしています。</p>
+  </div>
+
+  <svg class="stitch" viewBox="0 0 1080 14" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 7 H1080"/>
+    <g>
+      <!-- stitching ticks -->
+    </g>
+  </svg>
+
+  <section id="concept">
+    <div class="section-head reveal">
+      <div class="eyebrow">Concept</div>
+      <h2>野球を、続けたい人へ。</h2>
+    </div>
+    <p class="body-copy reveal">
+      Bearfootは、広島大学東広島キャンパスを拠点に活動する野球サークルです。中学・高校で野球部だった人も、経験はないけれど白球を追いかけてみたい人も、実力や経歴を問わず受け入れています。「勝つための野球」だけでなく、「続けるための野球」を大切にし、授業やアルバイトと両立しながら、自分たちのペースで白球に向き合える場をつくっています。
+    </p>
+  </section>
+
+  <section id="activities">
+    <div class="section-head reveal">
+      <div class="eyebrow">Activities</div>
+      <h2>活動内容</h2>
+      <p class="note">※現時点での一例です。詳細が固まり次第、随時更新します。</p>
+    </div>
+    <div class="grid3 reveal">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>定例練習</h3>
+        <p>東広島キャンパスのグラウンドを中心に、週数回のバッティング・守備練習を実施。授業の合間でも参加しやすい時間帯を設定しています。</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>対外試合・オープン戦</h3>
+        <p>近隣大学のサークルや社会人チームとの練習試合を定期的に開催。春季・秋季にはリーグ戦形式の大会にも参加します。</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>合宿・交流イベント</h3>
+        <p>長期休暇を利用した強化合宿のほか、新入生歓迎会や納会など、部員同士の交流を深める機会も設けています。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule">
+    <div class="section-head reveal">
+      <div class="eyebrow">Annual Schedule</div>
+      <h2>年間予定表</h2>
+      <p class="note">※2025年度の想定スケジュールです。実際の日程は決定次第お知らせします。</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="term">前期 — Spring / Summer</div>
+      <div class="tl-row">
+        <div class="tl-month">4月</div>
+        <div class="tl-event"><b>新歓期間・新入生歓迎試合</b><span>体験練習会を複数回開催し、新入生を迎え入れます。</span></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-month">5–6月</div>
+        <div class="tl-event"><b>春季リーグ戦</b><span>近隣大学サークルとのリーグ戦に参加。週末を中心に試合が続きます。</span></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-month">8月</div>
+        <div class="tl-event"><b>夏季強化合宿</b><span>2泊3日ほどの合宿でチーム力を底上げします。</span></div>
+      </div>
+      <div class="term">後期 — Autumn / Winter</div>
+      <div class="tl-row">
+        <div class="tl-month">10月</div>
+        <div class="tl-event"><b>秋季リーグ戦</b><span>後期の活動の中心となる大会シーズンです。</span></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-month">12月</div>
+        <div class="tl-event"><b>納会</b><span>1年間の活動を振り返る、部員全体の交流会です。</span></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-month">2–3月</div>
+        <div class="tl-event"><b>春季キャンプ・引退試合</b><span>新年度に向けた準備と、4年生の集大成の試合を行います。</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="philosophy" class="philosophy">
+    <div class="section-head reveal">
+      <div class="eyebrow">Philosophy</div>
+      <h2>目標・考え方</h2>
+      <p class="note">※理念文は仮のものです。ご希望の内容に差し替えます。</p>
+    </div>
+    <blockquote class="reveal">
+      うまくなることより、<br>
+      <span>やめない</span>理由をつくる。
+    </blockquote>
+    <p class="attribution">— BEARFOOT, Hiroshima University</p>
+  </section>
+
+  <section id="join">
+    <div class="section-head reveal">
+      <div class="eyebrow">Join Us</div>
+      <h2>加入案内・お問い合わせ</h2>
+    </div>
+    <div class="join reveal">
+      <span class="status"><i></i>連絡先は近日公開予定です</span>
+      <div class="join-grid">
+        <div class="join-item">
+          <span class="k">対象</span>
+          <span class="v">広島大学の学生（学年・経験不問）</span>
+        </div>
+        <div class="join-item">
+          <span class="k">活動場所</span>
+          <span class="v">東広島キャンパス グラウンド 他</span>
+        </div>
+        <div class="join-item">
+          <span class="k">連絡先</span>
+          <span class="v">準備中</span>
+        </div>
+        <div class="join-item">
+          <span class="k">SNS</span>
+          <span class="v">準備中</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a class="lockup" href="#top">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true" style="width:18px;height:18px;">
+        <ellipse cx="24" cy="30" rx="12" ry="10"/>
+        <ellipse cx="9" cy="14" rx="5.4" ry="6.6" transform="rotate(-18 9 14)"/>
+        <ellipse cx="21" cy="7" rx="5.6" ry="7" transform="rotate(-4 21 7)"/>
+        <ellipse cx="34" cy="8" rx="5.4" ry="6.8" transform="rotate(10 34 8)"/>
+        <ellipse cx="43" cy="19" rx="4.6" ry="6" transform="rotate(30 43 19)"/>
+      </svg>
+      <span class="word">BEARFOOT</span>
+    </a>
+    <span class="copy">© 2025 Bearfoot, Hiroshima University Baseball Circle</span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
